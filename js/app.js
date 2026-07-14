@@ -55,8 +55,11 @@ function loadLanguages() {
 //==========================================
 
 function applyTranslations() {
-
+    
     const t = TRANSLATIONS[language.getCurrent()];
+
+    worldFilter.options[0].textContent =
+    t.worlds;
 
     document.querySelector("h2").textContent =
         t.activeBosses;

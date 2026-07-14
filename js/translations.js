@@ -12,6 +12,7 @@ export const TRANSLATIONS = {
         notificationsEnabled: "Notificaciones activadas",
         notificationsDenied: "Permiso de notificaciones denegado",
 
+        worlds: "🌍 Mundos",
         activeBosses: "🔥 Jefes Activos",
         upcomingBosses: "⏳ Próximos Jefes",
         completed: "Completados",
@@ -36,6 +37,7 @@ export const TRANSLATIONS = {
         notificationsEnabled: "Notifications enabled",
         notificationsDenied: "Notification permission denied",
 
+        worlds: "🌍 Worlds",
         activeBosses: "🔥 Active Bosses",
         upcomingBosses: "⏳ Upcoming Bosses",
         completed: "Completed",
