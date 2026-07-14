@@ -3,6 +3,8 @@
 // ui.js
 // =========================================
 
+import Language from "./language.js";
+
 export default class UI {
 
     constructor() {
@@ -11,7 +13,7 @@ export default class UI {
         this.bossContainer = document.getElementById("bossList");
         this.completedContainer = document.getElementById("completedList");
         this.completedTitle = document.getElementById("completedTitle");
-
+        this.language = new Language();
     }
 
     //==========================================
@@ -67,7 +69,7 @@ const name = document.createElement("div");
 name.className = "bossName";
 
 const worldText = boss.layer
-    ? `${boss.world} • Layer 1`
+    ? `${boss.world} • ${this.language.t("layer")}`
     : boss.world;
 
 if (active) {
@@ -87,7 +89,8 @@ status.style.whiteSpace = "nowrap";
 
 if (active) {
 
-    status.textContent = "🔥 Activo";
+    status.textContent =
+        this.language.t("active");
 
 } else {
 
@@ -127,7 +130,8 @@ card.appendChild(info);
 
     button.dataset.id = boss.id;
 
-    button.title = "Marcar como derrotado";
+    button.title =
+    this.language.t("complete");
 
     card.appendChild(button);
 
@@ -148,7 +152,9 @@ card.appendChild(info);
         if (!list.length) {
 
             this.activeContainer.innerHTML =
-                "<div class='emptyMessage'>No hay bosses activos.</div>";
+    `<div class="emptyMessage">
+        ${this.language.t("noActive")}
+    </div>`;
 
             return;
 
@@ -203,7 +209,7 @@ card.appendChild(info);
         this.completedContainer.innerHTML = "";
 
         this.completedTitle.textContent =
-            `Completed (${list.length})`;
+    `${this.language.t("completed")} (${list.length})`;
 
         list.forEach(boss => {
 
@@ -219,9 +225,9 @@ card.appendChild(info);
 
             const world = document.createElement("div");
             world.className = "bossWorld";
-            world.textContent = boss.layer
-                ? `${boss.world} • Layer 1`
-                : boss.world;
+            const worldText = boss.layer
+    ? `${boss.world} • ${this.language.t("layer")}`
+    : boss.world;
 
             info.appendChild(name);
             info.appendChild(world);
@@ -234,7 +240,8 @@ card.appendChild(info);
 
             restore.textContent = "↺";
 
-            restore.title = "Volver a pendientes";
+            restore.title =
+    this.language.t("restore");
 
             restore.dataset.id = boss.id;
 

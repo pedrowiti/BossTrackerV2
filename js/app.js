@@ -8,19 +8,77 @@ import Storage from "./storage.js";
 import UI from "./ui.js";
 import { BOSSES } from "./bosses.js";
 import { CONFIG } from "./config.js";
+import Language from "./language.js";
+import { TRANSLATIONS } from "./translations.js";
 
 const engine = new Engine();
 const storage = new Storage();
 const ui = new UI();
+const language = new Language();
 
 const searchInput = document.getElementById("searchInput");
 const worldFilter = document.getElementById("worldFilter");
 const resetButton = document.getElementById("btnReset");
 const timezoneInfo = document.getElementById("timezoneInfo");
+const languageSelector =
+    document.getElementById("languageSelector");
 
 let activeBosses = [];
 let upcomingBosses = [];
 let completedBosses = [];
+
+//==========================================
+// CARGAR IDIOMAS
+//==========================================
+
+function loadLanguages() {
+
+    languageSelector.innerHTML = "";
+
+    language.getLanguages().forEach(code => {
+
+        const option = document.createElement("option");
+
+        option.value = code;
+
+        option.textContent =
+            TRANSLATIONS[code].languageName;
+
+        languageSelector.appendChild(option);
+
+    });
+
+}
+
+//==========================================
+// TRADUCCIONES
+//==========================================
+
+function applyTranslations() {
+
+    const t = TRANSLATIONS[language.getCurrent()];
+
+    document.querySelector("h2").textContent =
+        t.activeBosses;
+
+    document.querySelectorAll("h2")[1].textContent =
+        t.upcomingBosses;
+
+    document.getElementById("btnNotifications").textContent =
+        t.notifications;
+        timezoneInfo.textContent =
+    `${t.timezone}: ${engine.getUserTimezone()}`;
+
+    document.getElementById("btnReset").textContent =
+        t.reset;
+
+    document.getElementById("searchInput").placeholder =
+        t.search;
+
+    languageSelector.value =
+        language.getCurrent();
+
+}
 
 //==========================================
 // NOTIFICACIONES
@@ -31,7 +89,7 @@ const notified = new Set();
 storage.cleanOldData();
 
 timezoneInfo.textContent =
-    "Zona horaria: " + engine.getUserTimezone();
+    `${language.t("timezone")}: ${engine.getUserTimezone()}`;
     if (Notification.permission === "default") {
 
     Notification.requestPermission();
@@ -218,6 +276,8 @@ function checkNotifications() {
 
 }
 
+loadLanguages();
+applyTranslations();
 refresh();
 
 setInterval(
@@ -258,7 +318,7 @@ ui.onBossRestore((id) => {
 
 resetButton.addEventListener("click", () => {
 
-    if (!confirm("¿Resetear todos los bosses?"))
+    if (!confirm(language.t("resetConfirm")))
         return;
 
     storage.clear();
@@ -290,3 +350,20 @@ worldFilter.addEventListener(
     refresh
 
 );
+//==========================================
+// IDIOMA
+//==========================================
+
+languageSelector.addEventListener("change", () => {
+
+    language.setLanguage(
+
+        languageSelector.value
+
+    );
+
+    applyTranslations();
+
+    refresh();
+
+});

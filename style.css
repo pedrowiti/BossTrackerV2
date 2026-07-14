@@ -88,6 +88,24 @@ TOOLBAR
 
 }
 
+.toolbar select{
+
+    background:#2d2d2d;
+
+    color:white;
+
+    border:none;
+
+    padding:10px 16px;
+
+    border-radius:6px;
+
+    cursor:pointer;
+
+    min-width:170px;
+
+}
+
 .toolbar button:hover{
 
     background:#3b3b3b;
