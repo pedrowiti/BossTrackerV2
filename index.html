@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Boss Tracker V2</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <header>
+
+        <h1>🔥 Boss Tracker V2</h1>
+
+        <div id="timezoneInfo">
+            Detectando zona horaria...
+        </div>
+
+    </header>
+
+
+    <section class="toolbar">
+
+        <button id="btnNotifications">
+            🔔 Activar notificaciones
+        </button>
+
+        <button id="btnReset">
+            ♻️ Reset All
+        </button>
+
+    </section>
+
+
+    <section class="filters">
+
+        <input
+            id="searchInput"
+            type="text"
+            placeholder="Buscar Boss..."
+        >
+
+        <select id="worldFilter">
+
+            <option value="ALL">Todos</option>
+
+            <option value="W1">W1</option>
+            <option value="W2">W2</option>
+            <option value="W3">W3</option>
+            <option value="W4">W4</option>
+            <option value="W5">W5</option>
+            <option value="W6">W6</option>
+            <option value="W7">W7</option>
+            <option value="W8">W8</option>
+
+            <option value="L1">Layer 1</option>
+
+        </select>
+
+    </section>
+
+
+    <h2>🔥 Bosses Activos</h2>
+
+    <div id="activeBosses">
+
+    </div>
+
+
+    <h2>⏳ Próximos Bosses</h2>
+
+    <div class="layout">
+
+        <main id="bossList">
+
+        </main>
+
+        <aside>
+
+            <h3 id="completedTitle">
+                Completed (0)
+            </h3>
+
+            <div id="completedList">
+
+            </div>
+
+        </aside>
+
+    </div>
+
+</div>
+
+<script type="module" src="./js/app.js"></script>
+
+</body>
+
+</html>
