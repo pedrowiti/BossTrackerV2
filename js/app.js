@@ -7,6 +7,7 @@ import Engine from "./engine.js";
 import Storage from "./storage.js";
 import UI from "./ui.js";
 import { BOSSES } from "./bosses.js";
+import { CONFIG } from "./config.js";
 
 const engine = new Engine();
 const storage = new Storage();
