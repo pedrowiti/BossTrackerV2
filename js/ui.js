@@ -24,8 +24,27 @@ export default class UI {
     showCompleteButton = false
 ) {
 
-        const card = document.createElement("div");
-        card.className = "bossCard";
+       const card = document.createElement("div");
+
+card.className = "bossCard";
+
+if (active) {
+
+    card.classList.add("bossActive");
+
+} else if (boss.remaining <= 300) {
+
+    // 5 minutos
+
+    card.classList.add("bossSoon");
+
+} else if (boss.remaining <= 1800) {
+
+    // 30 minutos
+
+    card.classList.add("bossWarning");
+
+}
 
         //-------------------------
         // Información

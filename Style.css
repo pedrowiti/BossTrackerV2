@@ -230,6 +230,34 @@ TARJETAS
 
 }
 
+/*==========================================
+COLORES SEGÚN ESTADO
+==========================================*/
+
+.bossWarning{
+
+    background:#5a4a1b;
+
+    border-left:5px solid #ffc107;
+
+}
+
+.bossSoon{
+
+    background:#184d2b;
+
+    border-left:5px solid #00ff88;
+
+}
+
+.bossActive{
+
+    background:#3a235f;
+
+    border-left:5px solid #b56dff;
+
+}
+
 .bossCard:hover{
 
     background:#393939;
