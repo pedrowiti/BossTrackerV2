@@ -111,7 +111,7 @@ function updateBosses() {
     const world =
         worldFilter.value;
 
-    BOSSES.forEach(boss => {
+    BOSSES.forEach((boss, index) => {
 
         // Boss ya derrotado esta semana
 
@@ -139,6 +139,8 @@ function updateBosses() {
             engine.minutesToString(time)
         ),
 
+        order: index,
+
         nextSpawn: next.nextSpawn,
 
         remaining: next.remaining,
@@ -162,19 +164,81 @@ function updateBosses() {
 
         if (world !== "ALL") {
 
-            if (world === "L1") {
+    switch (world) {
 
-                if (!boss.layer)
-                    return;
+        case "W1":
 
-            } else {
+            if (boss.layer || boss.world !== "W1")
+                return;
 
-                if (boss.world !== world)
-                    return;
+            break;
 
-            }
+        case "W2":
 
-        }
+            if (boss.layer || boss.world !== "W2")
+                return;
+
+            break;
+
+        case "W3":
+
+            if (boss.world !== "W3")
+                return;
+
+            break;
+
+        case "W4":
+
+            if (boss.world !== "W4")
+                return;
+
+            break;
+
+        case "W5":
+
+            if (boss.world !== "W5")
+                return;
+
+            break;
+
+        case "W6":
+
+            if (boss.world !== "W6")
+                return;
+
+            break;
+
+        case "W7":
+
+            if (boss.world !== "W7")
+                return;
+
+            break;
+
+        case "W8":
+
+            if (boss.world !== "W8")
+                return;
+
+            break;
+
+        case "L1-W1":
+
+            if (!(boss.layer && boss.world === "W1"))
+                return;
+
+            break;
+
+        case "L1-W2":
+
+            if (!(boss.layer && boss.world === "W2"))
+                return;
+
+            break;
+
+    }
+
+}
 
         // Clasificación
 
@@ -190,21 +254,24 @@ function updateBosses() {
 
     });
 
-    // Primero activos
-
-    activeBosses.sort((a, b) =>
-
-        a.name.localeCompare(b.name)
-
-    );
-
     // Después próximos por tiempo restante
 
-    upcomingBosses.sort((a, b) =>
+    upcomingBosses.sort((a, b) => {
 
-        a.remaining - b.remaining
+    // Primero el que aparece antes
 
-    );
+    if (a.remaining !== b.remaining) {
+
+        return a.remaining - b.remaining;
+
+    }
+
+    // Si aparecen a la misma hora,
+    // mantener el orden de bosses.js
+
+    return a.order - b.order;
+
+});
 
     completedBosses.sort((a, b) =>
 
