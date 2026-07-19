@@ -109,7 +109,8 @@ hours.className = "bossWorld";
 hours.textContent =
     this.getSchedulePreview(
         boss.scheduleFull,
-        boss.nextSpawn
+        boss.nextSpawn,
+        active        
     );
 
 info.appendChild(header);
@@ -294,28 +295,40 @@ onBossRestore(callback) {
 
 }
     //==========================================
-    // Mostrar próximos horarios
+    // Mostrar horarios
     //==========================================
 
-    getSchedulePreview(schedule, nextSpawn) {
+    getSchedulePreview(schedule, nextSpawn, active = false) {
 
-    if (!schedule || !nextSpawn)
-        return "";
+        if (!schedule || !nextSpawn)
+            return "";
 
-    const index = schedule.indexOf(nextSpawn);
+        let index = schedule.indexOf(nextSpawn);
 
-    if (index === -1)
-    return "";
+        if (index === -1)
+            return schedule.join(" · ");
 
-    const next1 = schedule[index];
+        // Si el boss está activo,
+        // mostrar primero la aparición actual.
 
-    const next2 =
-        schedule[(index + 1) % schedule.length];
+        if (active) {
 
-    const next3 =
-        schedule[(index + 2) % schedule.length];
+            index--;
 
-    return `${next1} · ${next2} · ${next3}`;
+            if (index < 0)
+                index = schedule.length - 1;
+
+        }
+
+        const hour1 = schedule[index];
+
+        const hour2 =
+            schedule[(index + 1) % schedule.length];
+
+        const hour3 =
+            schedule[(index + 2) % schedule.length];
+
+        return `${hour1} · ${hour2} · ${hour3}`;
 
 }
 
