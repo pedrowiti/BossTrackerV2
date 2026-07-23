@@ -21,8 +21,11 @@ export const TRANSLATIONS = {
         reset: "♻ Resetear todo",
         active: "🔥 Activo",
         noActive: "No hay jefes activos.",
-        language: "Idioma"
+        language: "Idioma",
 
+        notification10: "⏳ En 10 minutos aparecen {{count}} bosses",
+        notification5: "⏳ En 5 minutos aparecen {{count}} bosses",
+        notificationSpawn: "🔥 Han aparecido {{count}} bosses",
     },
 
     en: {
@@ -46,8 +49,11 @@ export const TRANSLATIONS = {
         reset: "♻ Reset All",
         active: "🔥 Active",
         noActive: "No active bosses.",
-        language: "Language"
+        language: "Language",
 
+        notification10: "⏳ {{count}} bosses appear in 10 minutes",
+        notification5: "⏳ {{count}} bosses appear in 5 minutes",
+        notificationSpawn: "🔥 {{count}} bosses have appeared",
     }
 
 };

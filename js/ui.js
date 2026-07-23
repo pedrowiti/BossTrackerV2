@@ -68,9 +68,7 @@ header.style.gap = "10px";
 const name = document.createElement("div");
 name.className = "bossName";
 
-const worldText = boss.layer
-    ? `${boss.world} • ${this.language.t("layer")}`
-    : boss.world;
+const worldText = this.formatWorld(boss);
 
 if (active) {
 
@@ -226,12 +224,14 @@ card.appendChild(info);
 
             const world = document.createElement("div");
             world.className = "bossWorld";
-            const worldText = boss.layer
-    ? `${boss.world} • ${this.language.t("layer")}`
-    : boss.world;
+            
+            const worldText = this.formatWorld(boss);
+            world.textContent = worldText;
 
             info.appendChild(name);
             info.appendChild(world);
+
+            world.textContent = worldText;
 
             card.appendChild(info);
 
@@ -355,6 +355,22 @@ onBossRestore(callback) {
         }
 
         return `${m}m ${s}s`;
+
+    }
+
+    //==========================================
+    // FORMATEAR MUNDO
+    //==========================================
+
+    formatWorld(boss) {
+
+        if (boss.layer) {
+
+            return `${this.language.t("layer")} ${boss.world}`;
+
+        }
+
+        return boss.world;
 
     }
 

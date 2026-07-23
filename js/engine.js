@@ -176,9 +176,19 @@ export default class Engine {
 
     return {
 
+           // Hora formateada (para mostrar)
         nextSpawn: this.minutesToString(nextSpawn),
 
-        remaining,
+        // Valor interno (para cálculos)
+        nextSpawnValue: nextSpawn,
+
+         // NUEVO
+        lastSpawn: this.minutesToString(previousSpawn),
+
+        // NUEVO
+        lastSpawnValue: previousSpawn,
+        
+            remaining,
 
         active: secondsSinceSpawn <= this.ACTIVE_SECONDS
 

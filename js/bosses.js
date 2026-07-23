@@ -227,6 +227,87 @@ export const BOSSES = [
     world:"W2",
     layer:true,
     schedule:["02:30","05:30","08:30","11:30"]
-}
+},
+
+{
+    id: "krog",
+    name: "Krog",
+    world: "W3",
+    layer: true,
+    schedule: [
+        "1:30",
+        "7:30"
+    ]
+},
+
+{
+    id: "kelis",
+    name: "Kelis",
+    world: "W3",
+    layer: true,
+    schedule: [
+        "2:30",
+        "8:30"
+    ]
+},
+
+{
+    id: "talasa",
+    name: "Talasa",
+    world: "W3",
+    layer: true,
+    schedule: [
+        "2:30",
+        "5:30",
+        "8:30",
+        "11:30"
+    ]
+},
+
+{
+    id: "barkas",
+    name: "Barkas",
+    world: "W3",
+    layer: true,
+    schedule: [
+        "3:30",
+        "9:30"
+    ]
+},
+
+{
+    id: "bargan",
+    name: "Bargan",
+    world: "W3",
+    layer: true,
+    schedule: [
+        "12:30",
+        "3:30",
+        "6:30",
+        "9:30"
+    ]
+},
+
+{
+    id: "morg",
+    name: "Morg",
+    world: "W3",
+    layer: true,
+    schedule: [
+        "4:30",
+        "10:30"
+    ]
+},
+
+{
+    id: "bordo",
+    name: "Bordo",
+    world: "W3",
+    layer: true,
+    schedule: [
+        "5:30",
+        "11:30"
+    ]
+},
 
 ];

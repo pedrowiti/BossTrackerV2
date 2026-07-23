@@ -29,9 +29,126 @@
 
     <section class="toolbar">
 
-    <button id="btnNotifications">
-        🔔 Activar notificaciones
+    <!--==========================================
+        Notification Settings button and panel
+    ===========================================-->
+
+
+    <div class="notificationWrapper">
+
+    <button
+        id="btnNotifications"
+        title="Notifications">
+
+        🔕
+
     </button>
+
+    <div
+        id="notificationPanel"
+        class="notificationPanel hidden">
+
+        <h3 id="notificationTitle">
+            🔔 Notifications
+        </h3>
+
+        <div class="notificationOption">
+
+            <span id="notificationEnabledLabel">
+                Enable notifications
+            </span>
+
+            <label class="switch">
+
+                <input
+                    type="checkbox"
+                    id="chkNotifications">
+
+                <span class="slider"></span>
+
+            </label>
+
+        </div>
+
+        <hr>
+
+        <div class="notificationOption">
+
+            <span id="notificationWindowsLabel">
+                Windows notifications
+            </span>
+
+            <label class="switch">
+
+                <input
+                    type="checkbox"
+                    id="chkWindows">
+
+                <span class="slider"></span>
+
+            </label>
+
+        </div>
+
+        <div class="notificationOption">
+
+            <span id="notificationSoundLabel">
+                Sound
+            </span>
+
+            <label class="switch">
+
+                <input
+                    type="checkbox"
+                    id="chkSound">
+
+                <span class="slider"></span>
+
+            </label>
+
+        </div>
+
+        <hr>
+
+        <div id="notificationWhenLabel">
+
+            Notify when:
+
+        </div>
+
+        <label>
+
+            <input
+                type="checkbox"
+                id="chk10">
+
+            10 minutes before
+
+        </label>
+
+        <label>
+
+            <input
+                type="checkbox"
+                id="chk5">
+
+            5 minutes before
+
+        </label>
+
+        <label>
+
+            <input
+                type="checkbox"
+                id="chkSpawn">
+
+            On spawn
+
+        </label>
+
+    </div>
+
+</div>
 
     <button id="btnReset">
         ♻️ Reset All
@@ -66,7 +183,8 @@
             <option disabled>────────────</option>
 
             <option value="L1-W1">Layer 1 W1</option>
-<option value="L1-W2">Layer 1 W2</option>
+            <option value="L1-W2">Layer 1 W2</option>
+            <option value="L1-W3">Layer 1 W3</option>
 
         </select>
 

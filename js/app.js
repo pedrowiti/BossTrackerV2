@@ -3,25 +3,60 @@
 // app.js
 // =========================================
 
+//==========================================
+// IMPORTS
+//==========================================
+
 import Engine from "./engine.js";
 import Storage from "./storage.js";
 import UI from "./ui.js";
+import Notifications from "./notifications.js";
+import NotificationsUI from "./notificationsUI.js";
+import Language from "./language.js";
+
 import { BOSSES } from "./bosses.js";
 import { CONFIG } from "./config.js";
-import Language from "./language.js";
 import { TRANSLATIONS } from "./translations.js";
+
+//==========================================
+// INSTANCIAS
+//==========================================
 
 const engine = new Engine();
 const storage = new Storage();
 const ui = new UI();
+
 const language = new Language();
 
-const searchInput = document.getElementById("searchInput");
-const worldFilter = document.getElementById("worldFilter");
-const resetButton = document.getElementById("btnReset");
-const timezoneInfo = document.getElementById("timezoneInfo");
+const notifications =
+    new Notifications(language);
+
+const notificationsUI =
+    new NotificationsUI(notifications);
+
+//==========================================
+// ELEMENTOS HTML
+//==========================================
+
+const searchInput =
+    document.getElementById("searchInput");
+
+const worldFilter =
+    document.getElementById("worldFilter");
+
+const resetButton =
+    document.getElementById("btnReset");
+
+const timezoneInfo =
+    document.getElementById("timezoneInfo");
+
 const languageSelector =
     document.getElementById("languageSelector");
+
+//==========================================
+// ESTADO
+//==========================================
+
 
 let activeBosses = [];
 let upcomingBosses = [];
@@ -55,11 +90,11 @@ function loadLanguages() {
 //==========================================
 
 function applyTranslations() {
-    
+
     const t = TRANSLATIONS[language.getCurrent()];
 
     worldFilter.options[0].textContent =
-    t.worlds;
+        t.worlds;
 
     document.querySelector("h2").textContent =
         t.activeBosses;
@@ -67,16 +102,14 @@ function applyTranslations() {
     document.querySelectorAll("h2")[1].textContent =
         t.upcomingBosses;
 
-    document.getElementById("btnNotifications").textContent =
-        t.notifications;
-        timezoneInfo.textContent =
-    `${t.timezone}: ${engine.getUserTimezone()}`;
-
-    document.getElementById("btnReset").textContent =
+    resetButton.textContent =
         t.reset;
 
-    document.getElementById("searchInput").placeholder =
+    searchInput.placeholder =
         t.search;
+
+    timezoneInfo.textContent =
+        `${t.timezone}: ${engine.getUserTimezone()}`;
 
     languageSelector.value =
         language.getCurrent();
@@ -84,16 +117,17 @@ function applyTranslations() {
 }
 
 //==========================================
-// NOTIFICACIONES
+// CONFIGURACIÓN INICIAL
 //==========================================
-
-const notified = new Set();
 
 storage.cleanOldData();
 
+notificationsUI.init();
+
 timezoneInfo.textContent =
     `${language.t("timezone")}: ${engine.getUserTimezone()}`;
-    if (Notification.permission === "default") {
+
+if (Notification.permission === "default") {
 
     Notification.requestPermission();
 
@@ -143,10 +177,15 @@ function updateBosses() {
 
         nextSpawn: next.nextSpawn,
 
+        nextSpawnValue: next.nextSpawnValue,
+
         remaining: next.remaining,
 
-        active: next.active
+        active: next.active,
 
+        lastSpawn: next.lastSpawn,
+
+        lastSpawnValue: next.lastSpawnValue,
 };
 
         // Buscador
@@ -236,6 +275,13 @@ function updateBosses() {
 
             break;
 
+        case "L1-W3":
+
+            if (!(boss.layer && boss.world === "W3"))
+                return;
+
+            break;
+
     }
 
 }
@@ -295,68 +341,18 @@ function refresh() {
 
     updateBosses();
 
-    checkNotifications();
+   notifications.check(
 
-    render();
+    activeBosses,
 
-}
-
-//==========================================
-// NOTIFICACIONES
-//==========================================
-
-function checkNotifications() {
-
-    if (Notification.permission !== "granted")
-        return;
-
-    upcomingBosses.forEach(boss => {
-
-        CONFIG.WARNINGS.forEach(minutes => {
-
-            const target = minutes * 60;
-
-            const key =
-                `${boss.id}-${boss.nextSpawn}-${minutes}`;
-
-            if (
-                boss.remaining <= target &&
-                boss.remaining > target - 1
-            ) {
-
-                if (notified.has(key))
-                    return;
-
-                notified.add(key);
-
-                new Notification(
-                    `${boss.name} (${boss.world})`,
-                    {
-                        body:
-                            `Aparece en ${minutes} minutos (${boss.nextSpawn})`,
-                        icon: "icon.png"
-                    }
-                );
-
-            }
-
-        });
-
-    });
-
-}
-
-loadLanguages();
-applyTranslations();
-refresh();
-
-setInterval(
-
-    refresh,
-
-    1000
+    upcomingBosses
 
 );
+ render();
+
+}
+
+
 
 //==========================================
 // BOTÓN X
@@ -420,6 +416,7 @@ worldFilter.addEventListener(
     refresh
 
 );
+
 //==========================================
 // IDIOMA
 //==========================================
@@ -437,3 +434,15 @@ languageSelector.addEventListener("change", () => {
     refresh();
 
 });
+
+//==========================================
+// INIT
+//==========================================
+
+loadLanguages();
+
+applyTranslations();
+
+refresh();
+
+setInterval(refresh,1000);

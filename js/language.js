@@ -51,18 +51,24 @@ export default class Language {
     // Obtener traducción
     //==========================================
 
-    t(key) {
+    t(key, variables = {}) {
 
-        const language =
+    const language = TRANSLATIONS[this.current];
 
-            TRANSLATIONS[this.current];
+    if (!language)
+        return key;
 
-        if (!language)
-            return key;
+    let text = language[key] || key;
 
-        return language[key] || key;
+    Object.entries(variables).forEach(([name, value]) => {
 
-    }
+        text = text.replaceAll(`{{${name}}}`, value);
+
+    });
+
+    return text;
+
+}
 
     //==========================================
     // Obtener idiomas disponibles
